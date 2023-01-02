@@ -105,5 +105,3 @@ mysql > grant all privileges on *.* to 'harry'@'localhost' with grant option;
 - Generfate SSH Key:- ssh-keygen -t rsa
 - Check Public Key:- cat ~/.ssh/id_rsa.pub
 - Copy SSH Public Key to Digital Ocean Droplet IP:- ssh-copy-id root@host
-
-
