@@ -1,0 +1,109 @@
+## Create New Linux User:-
+- adduser UserName
+
+## Give sudo Permission to that User:-
+- usermod -aG sudo UserName
+
+## Check all the App running on the Server:-
+- ufw app list
+
+## Check if Firewall is active or not:-
+- ufw status
+
+## Enable Firewall:-
+- ufw allow OpenSSH
+- ufw enable
+
+## Now Login with that New User:-
+- ssh nonrootuser@host
+
+## Update all the Apps:-
+- sudo apt update
+
+## Change Non-root User To root:-
+- sudo su
+
+## Install apache:-
+- sudo apt install apache2
+
+## Get Info of the App:-
+- sudo ufw app info "Apache Full"
+
+## Allow Apche to be accessible:-
+- sudo ufw allow in "Apache Full"
+
+## Install MySQL:-
+- sudo apt install mysql-server
+
+## Go to MySQL Terminal:-
+- sudo mysql
+
+## Check Auth for MySQL User:-
+mysql > SELECT user, authentication_string, plugin, host FROM mysql.user;
+
+## Change Password of root of MySQL:-
+mysql > ALTER user 'root'@'localhost' identified with mysql_native_password by 'NewPassword';
+mysql > FLUSH PRIVILEGES;
+
+## Now, it should Logon with Password in MySQL:-
+- sudo mysql -p
+
+## Install PHP:-
+- sudo apt install php libapache2-mod-php php-mysql
+
+## Prioritize entrypoint of PHP Site:-
+- sudo nano /etc/apache2/mods-enabled/dir.conf
+(Need to interchange index.html with index.php)
+
+## Restart apache:-
+- sudo service apache2 restart
+
+## All the Sites will be inside:-
+- cd /var/www/html
+(by default index.html file will be there inside html Dir)
+
+## Install phpmyadmin:-
+- sudo apt install phpmyadmin php-mbstring php-gettext
+- sudo phpenmod mbstring
+- sudo service apache2 restart
+
+## Create new MySQL User:-
+mysql > create user 'harry'@'localhost' identified by 'harrypassword';
+mysql > grant all privileges on *.* to 'harry'@'localhost' with grant option;
+
+## Create Project Dir:-
+- sudo mkdir DirName
+
+## Change Owner to User:-
+- sudo chown -R $USER:$USER DirName
+
+## Create Virtual Host:-
+- Go to /etc/apache2/sites-available
+- Create YourDirName.conf File:- sudo cp 000-default.conf YourDirName.conf
+- Edit YourDirName.conf for ServerAdmin, ServerName, ServerAlias, DocumentRoot
+- Enable that site:- sudo a2ensite YourDirName.conf
+- Disable 000-default.conf:- sudo a2dissite YourDirName.conf
+- sudo service apache2 restart
+- Check if it is working:- sudo apache2ctl config test
+
+## Go on GodDaddy and select DNS Management:-
+- set A @ Value to Your Droplet IP
+
+## Important Apache2 Dir / Files:-
+- /var/www/html/ - Web Content
+- /etc/apache2 - Server Configuration
+- /etc/apache2/apache2.conf - Global Apache Conf File
+- /etc/apache2/ports.conf - By Default apache listen to Port 80, but when SSL is enabled then it listen to 443
+- /etc/apache2/sites-available/ - We can configure Virtual Hosts in that
+- /etc/apache2/sites-enabled/ - We can check which sites are enabled
+- /var/log/apache2/access.log - Server Logs - Access
+- /var/log/apache2/error.log - Server Logs - Error
+(Go to last Line of log - sudo tail /var/log/apache2/error.log)
+
+## SSH Stuff:-
+- Login to Server with PuTTy:- ssh root@host
+- Generfate SSH Key:- ssh-keygen -t rsa
+- Check Public Key:- cat ~/.ssh/id_rsa.pub
+- Copy SSH Public Key to Digital Ocean Droplet IP:- ssh-copy-id root@host
+
+
